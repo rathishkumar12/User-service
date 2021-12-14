@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>User</display-name>
+	
+	<servlet>
+		<servlet-name>UserApi</servlet-name>
+		<servlet-class>com.contactmanagementsystem.controllers.UserApi</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserApi</servlet-name>
+		<url-pattern>/api/user/*</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>free pages</web-resource-name>
+			<url-pattern>/user/logout</url-pattern>
+			<url-pattern>/user/create</url-pattern>
+			<url-pattern>/user/verify</url-pattern>
+			<url-pattern>/ForgotPassword.jsp</url-pattern>
+			<url-pattern>/PageNotAvailable.jsp</url-pattern>
+			<url-pattern>/api/user/login/*</url-pattern>
+			<url-pattern>/api/user/check_authorization/*</url-pattern>
+			<url-pattern>/api/*</url-pattern>
+			<url-pattern>/Authorize</url-pattern>
+			<url-pattern>/images/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secured pages</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>DELETE</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-role>
+		<role-name>1</role-name>
+	</security-role>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/Error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/login</location>
+	</error-page>
+
+</web-app>
